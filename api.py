@@ -47,7 +47,7 @@ def cobrar(minutos: int) -> int:
     if minutos <= GRACIA_MIN:
         return 0
     horas = math.ceil(minutos / 60)
-    return horas * TARIFA_HORA
+    return horas * TARIFA_HORA  
 
 
 def get_or_404(ticket_id: int) -> dict:
