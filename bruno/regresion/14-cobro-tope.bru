@@ -1,0 +1,22 @@
+meta {
+  name: 14-cobro-tope
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{baseUrl}}/tickets/2/salida
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "salida": "2026-10-22T18:00:00Z"
+  }
+}
+
+assert {
+  res.status: eq 200
+  res.body.monto: eq 60
+}

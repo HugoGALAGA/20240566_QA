@@ -1,0 +1,23 @@
+meta {
+  name: 13-abrir-tope
+  type: http
+  seq: 13
+}
+
+post {
+  url: {{baseUrl}}/tickets
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "placa": "P999TOP",
+    "entrada": "2026-10-22T08:00:00Z"
+  }
+}
+
+assert {
+  res.status: eq 201
+  res.body.id: defined
+}
