@@ -25,20 +25,20 @@ pipeline {
         '''
       }
     }
-    stage('Build image') {
-      steps { sh 'docker build -f Containerfile -t "$IMAGE" .' }
-    }
     stage('Regresion') {
       steps {
         dir('bruno/regresion') {
-          sh 'bru run --env local --sandbox=developer --reporter-junit results.xml || true'
+          sh 'bru run --env local --sandbox=developer --reporter-junit results.xml'
         }
       }
+    }
+    stage('Build image') {
+      steps { sh 'docker build -f Containerfile -t "$IMAGE" .' }
     }
   }
   post {
     always {
-      junit allowEmptyResults: true, testResults: 'bruno/smoke/results.xml'
+      junit allowEmptyResults: true, testResults: 'bruno/regresion/results.xml'
       sh 'kill "$(cat api.pid)" 2>/dev/null || true'
     }
   }
